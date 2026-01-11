@@ -49,9 +49,7 @@ class Classifier(object):
             class_weight="balanced",
             random_state=42
         )
-
-        # NOTE: if your sklearn is old and errors on 'estimator',
-        # replace estimator=base_tree with base_estimator=base_tree
+        
         self.pipe = make_pipeline(
             BaggingClassifier(
                 estimator=base_tree,

@@ -19,7 +19,7 @@ class Classifier(object):
         self.pipe = make_pipeline(
             LogisticRegression(
                 solver="lbfgs",
-                penalty=None,    # no regularization (your sklearn expects None, not "none")
+                penalty=None,
                 max_iter=2000,
                 random_state=42,
             )

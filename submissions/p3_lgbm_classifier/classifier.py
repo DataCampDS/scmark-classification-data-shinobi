@@ -77,11 +77,9 @@ class Classifier(object):
 
         self.model.fit(X, y_enc, sample_weight=sw)
 
-        # RAMP expects original labels
         self.classes_ = self.le_.classes_
         return self
 
     def predict_proba(self, X_sparse):
         X = _transform_preprocess_P3(X_sparse, self.gene_idx_)
-        # probabilities are in encoded order (0..K-1), which matches self.classes_
         return self.model.predict_proba(X)

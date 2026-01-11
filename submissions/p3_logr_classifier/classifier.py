@@ -4,11 +4,7 @@ from sklearn.linear_model import LogisticRegression
 
 
 def _preprocess_X_train(X_sparse, top_k=2000):
-    """
-    Fit-time preprocessing for P3:
-    normalize + log1p + HVG (fit HVG on train)
-    Returns: X_processed, gene_idx
-    """
+    
     X = X_sparse.toarray().astype(np.float32)
 
     # normalize each row by its sum
@@ -29,10 +25,6 @@ def _preprocess_X_train(X_sparse, top_k=2000):
 
 
 def _preprocess_X_test(X_sparse, gene_idx):
-    """
-    Test-time preprocessing for P3:
-    normalize + log1p + apply HVG indices from train
-    """
     X = X_sparse.toarray().astype(np.float32)
 
     row_sum = X.sum(axis=1, keepdims=True)

@@ -61,9 +61,7 @@ class Classifier(object):
         # Sample weights (balanced)
         sw = compute_sample_weight(class_weight="balanced", y=y_enc)
 
-        # --------------------------
         # Base models
-        # --------------------------
         base_tree = DecisionTreeClassifier(
             max_depth=8,
             min_samples_leaf=20,
@@ -72,8 +70,6 @@ class Classifier(object):
             random_state=42
         )
 
-        # If your sklearn is old and errors on 'estimator',
-        # replace estimator=base_tree with base_estimator=base_tree
         bag = BaggingClassifier(
             estimator=base_tree,
             n_estimators=200,
@@ -122,9 +118,7 @@ class Classifier(object):
             random_state=42
         )
 
-        # --------------------------
         # Stacking
-        # --------------------------
         self.model = StackingClassifier(
             estimators=[("bag", bag), ("hgb", hgb), ("lgbm", lgbm)],
             final_estimator=final_est,
@@ -135,11 +129,7 @@ class Classifier(object):
         )
 
         # Fit
-        # Note: sample_weight may or may not be supported depending on sklearn version.
-        # If it errors on the server, remove sample_weight.
         self.model.fit(X, y_enc, sample_weight=sw)
-
-        # RAMP expects original labels here
         self.classes_ = self.le_.classes_
         return self
 
